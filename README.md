@@ -1,14 +1,7 @@
-# clarity_init
+# Corporate Proxy for WSL
 
-To install run the following commands:
-```sh
-git clone https://github.com/Tyler-Laskey/clarity_init.git ~/clarity_init
-cd ~/clarity_init
-chmod +x init.sh
-sudo ./init.sh
-```
-After restarting ubuntu run the following commands:
-```sh
-cd ~/clarity_init
-sudo ./init.sh
+download the repository as an archive and extract to a local folder.  open a powershell window in the folder and run the following command. 
+
+```powershell
+_installScript.ps1
 ```
