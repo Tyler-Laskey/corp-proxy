@@ -2,6 +2,7 @@
 # Created on:   2022-03-28
 # Last updated: 2022-03-28
 
+
 # Move our scripts to a common location
 $destPath = "$($env:homepath)\wsl\scripts"
 if (-not (Test-Path $destPath -PathType Container)){
@@ -27,7 +28,7 @@ $class = cimclass MSFT_TaskEventTrigger root/Microsoft/Windows/TaskScheduler
 
 # Check if task exists
 try {
-  Get-ScheduledTask -TaskName "Update AnyConnect Adapter Interface Metric for WSL2" -TaskPath "\WSL\"
+  Get-ScheduledTask -TaskName "Update AnyConnect Adapter Interface Metric for WSL2" -TaskPath "\WSL\" -ErrorAction Stop
 } catch {
   $principal = New-ScheduledTaskPrincipal -Id 'Author' -UserId 't856052' -RunLevel Highest
   $settings = New-ScheduledTaskSettingsSet -Compatibility Vista -AllowStartIfOnBatteries
@@ -47,7 +48,7 @@ try {
 }
 
 try {
-  Get-ScheduledTask -TaskName "Update DNS in WSL2 Linux VM's" -TaskPath "\WSL\"
+  Get-ScheduledTask -TaskName "Update DNS in WSL2 Linux VM's" -TaskPath "\WSL\" -ErrorAction Stop
 } catch {
   $principal = New-ScheduledTaskPrincipal -Id 'Author' -UserId 't856052'
   $settings = New-ScheduledTaskSettingsSet -Compatibility Vista -AllowStartIfOnBatteries
@@ -74,7 +75,7 @@ try {
 }
 
 try {
-  Get-ScheduledTask -TaskName "Enable HTTPS_PROXY for TELUS by vpn" -TaskPath "\WSL\"
+  Get-ScheduledTask -TaskName "Enable HTTPS_PROXY for TELUS by vpn" -TaskPath "\WSL\" -ErrorAction Stop
 } catch {
   $principal = New-ScheduledTaskPrincipal -Id 'Author' -UserId 't856052'
   $settings = New-ScheduledTaskSettingsSet -Compatibility Vista -AllowStartIfOnBatteries
@@ -90,7 +91,7 @@ try {
 }
 
 try {
-  Get-ScheduledTask -TaskName "Disable HTTPS_PROXY for TELUS by vpn" -TaskPath "\WSL\"
+  Get-ScheduledTask -TaskName "Disable HTTPS_PROXY for TELUS by vpn" -TaskPath "\WSL\" -ErrorAction Stop
 } catch {
   $principal = New-ScheduledTaskPrincipal -Id 'Author' -UserId 't856052'
   $settings = New-ScheduledTaskSettingsSet -Compatibility Vista -AllowStartIfOnBatteries
