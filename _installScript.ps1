@@ -1,6 +1,7 @@
 # Created by:   Tyler Laskey
 # Created on:   2022-03-28
 # Last updated: 2022-03-30
+Clear-Host
 
 # Move our scripts to a common location
 $destPath = "$($env:homepath)\wsl\scripts"

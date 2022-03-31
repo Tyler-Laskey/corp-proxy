@@ -1,7 +1,7 @@
 # Created by:   Tyler Laskey
 # Created on:   2022-03-28
 # Last updated: 2022-03-30
-clear
+Clear-Host
 
 $TaskPath = "\WSL\"
 
