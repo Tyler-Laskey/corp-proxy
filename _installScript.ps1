@@ -3,6 +3,14 @@
 # Last updated: 2022-03-30
 Clear-Host
 
+If (-NOT ([Security.Principal.WindowsPrincipal] [Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole([Security.Principal.WindowsBuiltInRole]::Administrator))
+{
+  # Relaunch as an elevated process:
+  Start-Process powershell.exe "-File",('"{0}"' -f $MyInvocation.MyCommand.Path) -Verb RunAs
+  exit
+}
+# Now running elevated and can continue.
+
 # Move our scripts to a common location
 $destPath = "$($env:homepath)\wsl\scripts"
 if (-not (Test-Path $destPath -PathType Container)){
@@ -10,11 +18,13 @@ if (-not (Test-Path $destPath -PathType Container)){
 }
 
 # $PSScriptRoot -- this is where the script is located
-Copy-Item "$($PSScriptRoot)\disableHttpsProxy.ps1" "$($destPath)\disableHttpsProxy.ps1"
-Copy-Item "$($PSScriptRoot)\enableHttpsProxy.ps1"  "$($destPath)\enableHttpsProxy.ps1"
-Copy-Item "$($PSScriptRoot)\setCiscoVpnMetric.ps1" "$($destPath)\setCiscoVpnMetric.ps1"
-Copy-Item "$($PSScriptRoot)\setDns.ps1" "$($destPath)\setDns.ps1"
-Copy-Item "$($PSScriptRoot)\wsl_dns.py" "$($destPath)\wsl_dns.py"
+# robocopy "$($PSScriptRoot)\disableHttpsProxy.ps1" "$($destPath)\disableHttpsProxy.ps1"
+# robocopy "$($PSScriptRoot)\enableHttpsProxy.ps1"  "$($destPath)\enableHttpsProxy.ps1"
+# robocopy "$($PSScriptRoot)\setCiscoVpnMetric.ps1" "$($destPath)\setCiscoVpnMetric.ps1"
+# robocopy "$($PSScriptRoot)\setDns.ps1" "$($destPath)\setDns.ps1"
+# robocopy "$($PSScriptRoot)\wsl_dns.py" "$($destPath)\wsl_dns.py"
+Write-Host "Deploying scripts to: $($destPath)\wsl\scripts"
+robocopy $($PSScriptRoot) $($destPath) /is /xf "README.md" /xd ".git" /njh /njs /ndl /nc /ns /nfl
 
 
 $scheduleObject = New-Object -ComObject schedule.service
@@ -52,7 +62,7 @@ try {
 
   try {
     Register-ScheduledTask -Principal $principal -Setting $settings -Action $action -Trigger $trigger -TaskName $TaskName -TaskPath $TaskPath 
-    Write-Host "Task created successfully: " + $TaskPath + $TaskName -ForegroundColor Green
+    Write-Host "Task created successfully: $($TaskPath)$($TaskName)" -ForegroundColor Green
   } catch {
     Write-Host "Task creation failed: " + $TaskPath + $TaskName -ForegroundColor Red -BackgroundColor Black
   }
@@ -87,9 +97,9 @@ try {
 
   try {
     Register-ScheduledTask -Principal $principal -Setting $settings -Action $action -Trigger $trigger -TaskName $TaskName -TaskPath $TaskPath 
-    Write-Host "Task created successfully: " + $TaskPath + $TaskName -ForegroundColor Green
+    Write-Host "Task created successfully: $($TaskPath)$($TaskName)" -ForegroundColor Green
   } catch {
-    Write-Host "Task creation failed: " + $TaskPath + $TaskName -ForegroundColor Red -BackgroundColor Black
+    Write-Host "Task creation failed: $($TaskPath)$($TaskName)" -ForegroundColor Red -BackgroundColor Black
   }
 }
 
@@ -107,9 +117,9 @@ try {
 
   try {
     Register-ScheduledTask -Principal $principal -Setting $settings -Action $action -Trigger $trigger -TaskName $TaskName -TaskPath $TaskPath 
-    Write-Host "Task created successfully: " + $TaskPath + $TaskName -ForegroundColor Green
+    Write-Host "Task created successfully: $($TaskPath)$($TaskName)" -ForegroundColor Green
   } catch {
-    Write-Host "Task creation failed: " + $TaskPath + $TaskName -ForegroundColor Red -BackgroundColor Black
+    Write-Host "Task creation failed: $($TaskPath)$($TaskName)" -ForegroundColor Red -BackgroundColor Black
   }
 }
 
@@ -127,9 +137,9 @@ try {
 
   try {
     Register-ScheduledTask -Principal $principal -Setting $settings -Action $action -Trigger $trigger -TaskName $TaskName -TaskPath $TaskPath 
-    Write-Host "Task created successfully: " + $TaskPath + $TaskName -ForegroundColor Green
+    Write-Host "Task created successfully: $($TaskPath)$($TaskName)" -ForegroundColor Green
   } catch {
-    Write-Host "Task creation failed: " + $TaskPath + $TaskName -ForegroundColor Red -BackgroundColor Black
+    Write-Host "Task creation failed: $($TaskPath)$($TaskName)" -ForegroundColor Red -BackgroundColor Black
   }
 }
 

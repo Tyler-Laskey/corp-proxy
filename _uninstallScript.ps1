@@ -3,6 +3,14 @@
 # Last updated: 2022-03-30
 Clear-Host
 
+If (-NOT ([Security.Principal.WindowsPrincipal] [Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole([Security.Principal.WindowsBuiltInRole]::Administrator))
+{
+  # Relaunch as an elevated process:
+  Start-Process powershell.exe "-File",('"{0}"' -f $MyInvocation.MyCommand.Path) -Verb RunAs
+  exit
+}
+# Now running elevated and can continue.
+
 $TaskPath = "\WSL\"
 
 $TaskName = "Update AnyConnect Adapter Interface Metric for WSL2"
