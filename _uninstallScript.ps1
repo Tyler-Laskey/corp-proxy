@@ -58,3 +58,5 @@ try {
     Write-Host "Task '"$TaskPath$TaskName"' not detected."
   }
 } catch {}
+
+Read-Host -Prompt "Press any key to complete..."
