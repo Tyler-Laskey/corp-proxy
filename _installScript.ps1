@@ -111,3 +111,5 @@ try {
 
   Register-ScheduledTask -Principal $principal -Setting $settings -Action $action -Trigger $trigger -TaskName $TaskName -TaskPath $TaskPath 
 }
+
+Read-Host -Prompt "Press any key to complete..."
