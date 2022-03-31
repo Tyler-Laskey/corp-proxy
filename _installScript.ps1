@@ -31,7 +31,6 @@ $settings = New-ScheduledTaskSettingsSet -Compatibility Vista -AllowStartIfOnBat
 $class = Get-cimclass MSFT_TaskEventTrigger root/Microsoft/Windows/TaskScheduler
 $TaskPath = "\WSL\"
 
-
 # Check if task exists
 $TaskName = "Update AnyConnect Adapter Interface Metric for WSL2"
 try {
@@ -50,7 +49,13 @@ try {
 
   $trigger = @($t1, $t2)
 
-  Register-ScheduledTask -Principal $principal -Setting $settings -Action $action -Trigger $trigger -TaskName $TaskName -TaskPath $TaskPath 
+  try {
+    Register-ScheduledTask -Principal $principal -Setting $settings -Action $action -Trigger $trigger -TaskName $TaskName -TaskPath $TaskPath 
+    Write-Host "Task created successfully: " + $TaskPath + $TaskName -ForegroundColor Green
+  } catch {
+    Write-Host "Task creation failed: " + $TaskPath + $TaskName -ForegroundColor Red -BackgroundColor Black
+  }
+  
 }
 
 
@@ -79,7 +84,12 @@ try {
 
   $trigger = @($t1,$t2,$t3,$t4)
 
-  Register-ScheduledTask -Principal $principal -Setting $settings -Action $action -Trigger $trigger -TaskName $TaskName -TaskPath $TaskPath 
+  try {
+    Register-ScheduledTask -Principal $principal -Setting $settings -Action $action -Trigger $trigger -TaskName $TaskName -TaskPath $TaskPath 
+    Write-Host "Task created successfully: " + $TaskPath + $TaskName -ForegroundColor Green
+  } catch {
+    Write-Host "Task creation failed: " + $TaskPath + $TaskName -ForegroundColor Red -BackgroundColor Black
+  }
 }
 
 
@@ -94,7 +104,12 @@ try {
   $trigger.Enabled = $true
   $trigger.Subscription = $QueryStr.Replace("{{EID}}", "2039")
 
-  Register-ScheduledTask -Principal $principal -Setting $settings -Action $action -Trigger $trigger -TaskName $TaskName -TaskPath $TaskPath 
+  try {
+    Register-ScheduledTask -Principal $principal -Setting $settings -Action $action -Trigger $trigger -TaskName $TaskName -TaskPath $TaskPath 
+    Write-Host "Task created successfully: " + $TaskPath + $TaskName -ForegroundColor Green
+  } catch {
+    Write-Host "Task creation failed: " + $TaskPath + $TaskName -ForegroundColor Red -BackgroundColor Black
+  }
 }
 
 
@@ -109,7 +124,12 @@ try {
   $trigger.Enabled = $true
   $trigger.Subscription = $QueryStr.Replace("{{EID}}", "2010")
 
-  Register-ScheduledTask -Principal $principal -Setting $settings -Action $action -Trigger $trigger -TaskName $TaskName -TaskPath $TaskPath 
+  try {
+    Register-ScheduledTask -Principal $principal -Setting $settings -Action $action -Trigger $trigger -TaskName $TaskName -TaskPath $TaskPath 
+    Write-Host "Task created successfully: " + $TaskPath + $TaskName -ForegroundColor Green
+  } catch {
+    Write-Host "Task creation failed: " + $TaskPath + $TaskName -ForegroundColor Red -BackgroundColor Black
+  }
 }
 
 Read-Host -Prompt "Press any key to complete..."
