@@ -9,5 +9,5 @@ function set-DnsWsl($distro) {
         wsl.exe -d $distro -u root /opt/wsl_dns.py
     }
 }
-
+Start-Sleep 10
 set-DnsWsl ubuntu
